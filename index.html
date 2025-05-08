@@ -420,19 +420,26 @@
                     employeeName,
                     reports
                 };
-                
-                // Send to Google Apps Script Web App
+
+                // Show loading state
+                const submitButton = document.querySelector('.submit-btn');
+                const originalButtonText = submitButton.innerHTML;
+                submitButton.innerHTML = 'שולח... <span class="emoji">⏳</span>';
+                submitButton.disabled = true;
+
+                // Use fetch API instead of form submission
                 fetch('https://script.google.com/macros/s/AKfycbwRtfK1eeAaUFN-xZTyZA7714Fti7j7UmhYP4Rnpd419r8Tp81yoU3hm3847SH3EWto/exec', {
                     method: 'POST',
-                    body: JSON.stringify(timeReport),
+                    mode: 'no-cors', // This is important for CORS handling
                     headers: {
-                        'Content-Type': 'application/json'
-                    }
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(timeReport)
                 })
-                .then(response => response.json())
-                .then(data => {
+                .then(() => {
+                    // Show success message
                     document.getElementById('successMessage').style.display = 'block';
-                    // Reset form and UI as before
+                    // Reset form and UI
                     document.getElementById('timeReportForm').reset();
                     document.getElementById('projectEntries').innerHTML = '';
                     addProjectEntry();
@@ -442,8 +449,13 @@
                     }, 3000);
                 })
                 .catch(error => {
-                    alert('There was an error saving the report. Please try again.');
-                    console.error(error);
+                    console.error('Error:', error);
+                    alert('אירעה שגיאה בשליחת הטופס. אנא נסו שוב מאוחר יותר.');
+                })
+                .finally(() => {
+                    // Reset button state
+                    submitButton.innerHTML = originalButtonText;
+                    submitButton.disabled = false;
                 });
             }
         });
