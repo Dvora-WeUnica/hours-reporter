@@ -427,16 +427,19 @@
                 submitButton.innerHTML = 'שולח... <span class="emoji">⏳</span>';
                 submitButton.disabled = true;
 
-                // Use fetch API instead of form submission
+                // Use fetch API with the same configuration as the working curl request
                 fetch('https://script.google.com/macros/s/AKfycbwRtfK1eeAaUFN-xZTyZA7714Fti7j7UmhYP4Rnpd419r8Tp81yoU3hm3847SH3EWto/exec', {
                     method: 'POST',
-                    mode: 'no-cors', // This is important for CORS handling
                     headers: {
-                        'Content-Type': 'application/json',
+                        'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify(timeReport)
+                    body: JSON.stringify(timeReport),
+                    redirect: 'follow'
                 })
-                .then(() => {
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
                     // Show success message
                     document.getElementById('successMessage').style.display = 'block';
                     // Reset form and UI
