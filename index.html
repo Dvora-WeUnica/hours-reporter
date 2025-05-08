@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -107,7 +108,8 @@
             font-size: 1.1em;
         }
 
-        input, select {
+        input,
+        select {
             width: 100%;
             padding: 12px;
             border: 2px solid #e0e0e0;
@@ -128,7 +130,8 @@
             padding-left: 2.5em;
         }
 
-        input:focus, select:focus {
+        input:focus,
+        select:focus {
             outline: none;
             border-color: #3498db;
             box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
@@ -210,18 +213,39 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         @keyframes slideIn {
-            from { opacity: 0; transform: translateX(30px); }
-            to { opacity: 1; transform: translateX(0); }
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
         @keyframes fadeOut {
-            from { opacity: 1; transform: translateY(0); }
-            to { opacity: 0; transform: translateY(-10px); }
+            from {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            to {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
         }
 
         .emoji {
@@ -241,12 +265,13 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <h1>דיווח שעות עבודה <span class="emoji">⏰</span></h1>
-        
+
         <div class="welcome-text">
-            ברוכים הבאים למערכת דיווח השעות! 
+            ברוכים הבאים למערכת דיווח השעות!
             <br>
             כאן תוכלו לדווח בקלות על שעות העבודה שלכם בכל הפרויקטים.
         </div>
@@ -288,25 +313,38 @@
 
     <script>
         const employees = [
-            { id: 'John Smith', name: 'ג\'ון סמית' },
-            { id: 'Sarah Johnson', name: 'שרה ג\'ונסון' },
-            { id: 'Michael Brown', name: 'מייקל בראון' },
-            { id: 'Emily Davis', name: 'אמילי דייויס' },
-            { id: 'David Wilson', name: 'דוד וילסון' }
+            { id: 'Bracha Marmarush', name: 'ברכה מרמרוש' },
+            { id: 'Dvora Hershovitz', name: 'דבורה הרשוביץ' },
+            { id: 'Chaya Turtsin', name: 'חיה טורצ\'ין' },
+            { id: 'Yael Breuer', name: 'יעל ברויאר' },
+            { id: 'Miriam Goldschmidt', name: 'מרים גולדשמיט' },
+            { id: 'Pnina Prochter', name: 'פנינה פרוכטר' },
+            { id: 'Rivka Shreiber', name: 'רבקה שרייבר' },
+            { id: 'Riki Luz', name: 'ריקי לוז' },
+            { id: 'Ruth Klein', name: 'רות קליין' },
+            { id: 'Shoshana Palai', name: 'שושנה פלאי' },
+            { id: 'Shulamit Rothschild', name: 'שולמית רוטשילד' }
         ];
 
+
         const projects = [
-            { id: 'Project A', name: 'פרויקט A' },
-            { id: 'Project B', name: 'פרויקט B' },
-            { id: 'Project C', name: 'פרויקט C' },
-            { id: 'Project D', name: 'פרויקט D' },
-            { id: 'Project E', name: 'פרויקט E' }
+            { id: '4X4', name: '4X4' },
+            { id: 'Ads manager', name: 'Ads manager' },
+            { id: 'Golf', name: 'Golf' },
+            { id: 'Hashstrom', name: 'Hashstrom' },
+            { id: 'Ma’oz', name: 'Ma’oz' },
+            { id: 'Migdal', name: 'Migdal' },
+            { id: 'Oggen', name: 'Oggen' },
+            { id: 'Azrieli', name: 'Azrieli' },
+            { id: 'Shde Bar', name: 'Shde Bar' },
+            { id: 'Wix Security', name: 'Wix Security' }
         ];
+
 
         function createProjectEntry() {
             const entryDiv = document.createElement('div');
             entryDiv.className = 'project-entry';
-            
+
             const entryId = Date.now(); // Unique ID for the entry
             entryDiv.innerHTML = `
                 <button type="button" class="remove-entry" onclick="removeProjectEntry(this)">×</button>
@@ -314,9 +352,9 @@
                     <label for="projectName_${entryId}">שם הפרויקט: <span class="emoji">📊</span></label>
                     <select id="projectName_${entryId}" name="projectName" required onchange="updateTotalHours()">
                         <option value="">בחר/י פרויקט</option>
-                        ${projects.map(project => 
-                            `<option value="${project.id}">${project.name}</option>`
-                        ).join('')}
+                        ${projects.map(project =>
+                `<option value="${project.id}">${project.name}</option>`
+            ).join('')}
                     </select>
                     <div class="error">אנא בחר/י פרויקט מהרשימה</div>
                     <div class="field-tip">בחר/י את הפרויקט עליו עבדת</div>
@@ -330,7 +368,7 @@
                     <div class="field-tip">הזן/י את מספר השעות בחצאי שעות (לדוגמה: 7.5)</div>
                 </div>
             `;
-            
+
             return entryDiv;
         }
 
@@ -345,7 +383,7 @@
         function removeProjectEntry(button) {
             const entry = button.closest('.project-entry');
             const projectEntries = document.getElementById('projectEntries');
-            
+
             // אם זה הפרויקט האחרון, אל תמחק אותו
             if (projectEntries.children.length <= 1) {
                 alert('חייב להיות לפחות פרויקט אחד');
@@ -372,14 +410,14 @@
         // Add initial project entry
         addProjectEntry();
 
-        document.getElementById('timeReportForm').addEventListener('submit', function(e) {
+        document.getElementById('timeReportForm').addEventListener('submit', function (e) {
             e.preventDefault();
-            
+
             document.querySelectorAll('.error').forEach(error => error.style.display = 'none');
-            
+
             const employeeName = document.getElementById('employeeName').value;
             let isValid = true;
-            
+
             if (!employeeName) {
                 document.getElementById('employeeNameError').style.display = 'block';
                 isValid = false;
@@ -414,7 +452,7 @@
                     });
                 }
             });
-            
+
             if (isValid && reports.length > 0) {
                 const timeReport = {
                     employeeName,
@@ -436,32 +474,33 @@
                     body: JSON.stringify(timeReport),
                     redirect: 'follow'
                 })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    // Show success message
-                    document.getElementById('successMessage').style.display = 'block';
-                    // Reset form and UI
-                    document.getElementById('timeReportForm').reset();
-                    document.getElementById('projectEntries').innerHTML = '';
-                    addProjectEntry();
-                    updateTotalHours();
-                    setTimeout(() => {
-                        document.getElementById('successMessage').style.display = 'none';
-                    }, 3000);
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('אירעה שגיאה בשליחת הטופס. אנא נסו שוב מאוחר יותר.');
-                })
-                .finally(() => {
-                    // Reset button state
-                    submitButton.innerHTML = originalButtonText;
-                    submitButton.disabled = false;
-                });
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        // Show success message
+                        document.getElementById('successMessage').style.display = 'block';
+                        // Reset form and UI
+                        document.getElementById('timeReportForm').reset();
+                        document.getElementById('projectEntries').innerHTML = '';
+                        addProjectEntry();
+                        updateTotalHours();
+                        setTimeout(() => {
+                            document.getElementById('successMessage').style.display = 'none';
+                        }, 3000);
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('אירעה שגיאה בשליחת הטופס. אנא נסו שוב מאוחר יותר.');
+                    })
+                    .finally(() => {
+                        // Reset button state
+                        submitButton.innerHTML = originalButtonText;
+                        submitButton.disabled = false;
+                    });
             }
         });
     </script>
 </body>
-</html> 
+
+</html>
