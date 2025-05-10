@@ -466,8 +466,13 @@
             if (isValid && reports.length > 0) {
                 const timeReport = {
                     employeeName,
-                    reports
+                    reports: reports.map(report => ({
+                        projectName: report.projectName,
+                        hoursWorked: parseFloat(report.hoursWorked)
+                    }))
                 };
+
+                console.log('Sending data:', timeReport); // Debug log
 
                 // Create a hidden form
                 const form = document.createElement('form');
@@ -482,6 +487,8 @@
                 dataInput.value = JSON.stringify(timeReport);
                 form.appendChild(dataInput);
 
+                console.log('Form data being sent:', dataInput.value); // Debug log
+
                 // Create hidden iframe for the response if it doesn't exist
                 let iframe = document.getElementById('hidden_iframe');
                 if (!iframe) {
@@ -494,6 +501,7 @@
 
                 // Handle the response
                 iframe.onload = function() {
+                    console.log('Form submitted, iframe loaded'); // Debug log
                     document.getElementById('successMessage').style.display = 'block';
                     document.getElementById('timeReportForm').reset();
                     document.getElementById('projectEntries').innerHTML = '';
