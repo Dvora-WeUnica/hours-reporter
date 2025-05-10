@@ -502,7 +502,10 @@
                     setTimeout(() => {
                         document.getElementById('successMessage').style.display = 'none';
                     }, 3000);
-                    document.body.removeChild(form);
+                    iframe.onload = null;
+                    if (form.parentNode) {
+                        form.parentNode.removeChild(form);
+                    }
                 };
 
                 // Add the form to the document and submit it
