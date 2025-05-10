@@ -111,8 +111,6 @@
 
         input,
         select {
-        input,
-        select {
             width: 100%;
             padding: 12px;
             border: 2px solid #e0e0e0;
@@ -133,8 +131,6 @@
             padding-left: 2.5em;
         }
 
-        input:focus,
-        select:focus {
         input:focus,
         select:focus {
             outline: none;
@@ -227,15 +223,6 @@
                 opacity: 1;
                 transform: translateY(0);
             }
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
         }
 
         @keyframes slideIn {
@@ -248,27 +235,9 @@
                 opacity: 1;
                 transform: translateX(0);
             }
-            from {
-                opacity: 0;
-                transform: translateX(30px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
         }
 
         @keyframes fadeOut {
-            from {
-                opacity: 1;
-                transform: translateY(0);
-            }
-
-            to {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
             from {
                 opacity: 1;
                 transform: translateY(0);
@@ -354,17 +323,6 @@
             { id: 'Ruth Klein', name: 'רות קליין' },
             { id: 'Shoshana Palai', name: 'שושנה פלאי' },
             { id: 'Shulamit Rothschild', name: 'שולמית רוטשילד' }
-            { id: 'Bracha Marmarush', name: 'ברכה מרמרוש' },
-            { id: 'Dvora Hershovitz', name: 'דבורה הרשוביץ' },
-            { id: 'Chaya Turtsin', name: 'חיה טורצ\'ין' },
-            { id: 'Yael Breuer', name: 'יעל ברויאר' },
-            { id: 'Miriam Goldschmidt', name: 'מרים גולדשמיט' },
-            { id: 'Pnina Prochter', name: 'פנינה פרוכטר' },
-            { id: 'Rivka Shreiber', name: 'רבקה שרייבר' },
-            { id: 'Riki Luz', name: 'ריקי לוז' },
-            { id: 'Ruth Klein', name: 'רות קליין' },
-            { id: 'Shoshana Palai', name: 'שושנה פלאי' },
-            { id: 'Shulamit Rothschild', name: 'שולמית רוטשילד' }
         ];
 
 
@@ -402,9 +360,6 @@
                     <label for="projectName_${entryId}">שם הפרויקט: <span class="emoji">📊</span></label>
                     <select id="projectName_${entryId}" name="projectName" required onchange="updateTotalHours()">
                         <option value="">בחר/י פרויקט</option>
-                        ${projects.map(project =>
-                `<option value="${project.id}">${project.name}</option>`
-            ).join('')}
                         ${projects.map(project =>
                 `<option value="${project.id}">${project.name}</option>`
             ).join('')}
@@ -466,16 +421,12 @@
         addProjectEntry();
 
         document.getElementById('timeReportForm').addEventListener('submit', function (e) {
-        document.getElementById('timeReportForm').addEventListener('submit', function (e) {
             e.preventDefault();
-
 
             document.querySelectorAll('.error').forEach(error => error.style.display = 'none');
 
-
             const employeeName = document.getElementById('employeeName').value;
             let isValid = true;
-
 
             if (!employeeName) {
                 document.getElementById('employeeNameError').style.display = 'block';
@@ -512,7 +463,6 @@
                 }
             });
 
-
             if (isValid && reports.length > 0) {
                 const timeReport = {
                     employeeName,
@@ -534,54 +484,30 @@
                     body: JSON.stringify(timeReport),
                     redirect: 'follow'
                 })
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error('Network response was not ok');
-                        }
-                        // Show success message
-                        document.getElementById('successMessage').style.display = 'block';
-                        // Reset form and UI
-                        document.getElementById('timeReportForm').reset();
-                        document.getElementById('projectEntries').innerHTML = '';
-                        addProjectEntry();
-                        updateTotalHours();
-                        setTimeout(() => {
-                            document.getElementById('successMessage').style.display = 'none';
-                        }, 3000);
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        alert('אירעה שגיאה בשליחת הטופס. אנא נסו שוב מאוחר יותר.');
-                    })
-                    .finally(() => {
-                        // Reset button state
-                        submitButton.innerHTML = originalButtonText;
-                        submitButton.disabled = false;
-                    });
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error('Network response was not ok');
-                        }
-                        // Show success message
-                        document.getElementById('successMessage').style.display = 'block';
-                        // Reset form and UI
-                        document.getElementById('timeReportForm').reset();
-                        document.getElementById('projectEntries').innerHTML = '';
-                        addProjectEntry();
-                        updateTotalHours();
-                        setTimeout(() => {
-                            document.getElementById('successMessage').style.display = 'none';
-                        }, 3000);
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        alert('אירעה שגיאה בשליחת הטופס. אנא נסו שוב מאוחר יותר.');
-                    })
-                    .finally(() => {
-                        // Reset button state
-                        submitButton.innerHTML = originalButtonText;
-                        submitButton.disabled = false;
-                    });
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    // Show success message
+                    document.getElementById('successMessage').style.display = 'block';
+                    // Reset form and UI
+                    document.getElementById('timeReportForm').reset();
+                    document.getElementById('projectEntries').innerHTML = '';
+                    addProjectEntry();
+                    updateTotalHours();
+                    setTimeout(() => {
+                        document.getElementById('successMessage').style.display = 'none';
+                    }, 3000);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('אירעה שגיאה בשליחת הטופס. אנא נסו שוב מאוחר יותר.');
+                })
+                .finally(() => {
+                    // Reset button state
+                    submitButton.innerHTML = originalButtonText;
+                    submitButton.disabled = false;
+                });
             }
         });
     </script>
@@ -589,5 +515,3 @@
 
 </html>
 
-
-</html>
