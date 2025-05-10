@@ -469,28 +469,32 @@
                     reports
                 };
 
-                // Show loading state
-                const submitButton = document.querySelector('.submit-btn');
-                const originalButtonText = submitButton.innerHTML;
-                submitButton.innerHTML = 'שולח... <span class="emoji">⏳</span>';
-                submitButton.disabled = true;
+                // Create a hidden form
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = 'https://script.google.com/macros/s/AKfycbwRtfK1eeAaUFN-xZTyZA7714Fti7j7UmhYP4Rnpd419r8Tp81yoU3hm3847SH3EWto/exec';
+                form.target = 'hidden_iframe';
 
-                // Use fetch API with the same configuration as the working curl request
-                fetch('https://script.google.com/macros/s/AKfycbwRtfK1eeAaUFN-xZTyZA7714Fti7j7UmhYP4Rnpd419r8Tp81yoU3hm3847SH3EWto/exec', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(timeReport),
-                    redirect: 'follow'
-                })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    // Show success message
+                // Add data as a hidden field
+                const dataInput = document.createElement('input');
+                dataInput.type = 'hidden';
+                dataInput.name = 'data';
+                dataInput.value = JSON.stringify(timeReport);
+                form.appendChild(dataInput);
+
+                // Create hidden iframe for the response if it doesn't exist
+                let iframe = document.getElementById('hidden_iframe');
+                if (!iframe) {
+                    iframe = document.createElement('iframe');
+                    iframe.name = 'hidden_iframe';
+                    iframe.id = 'hidden_iframe';
+                    iframe.style.display = 'none';
+                    document.body.appendChild(iframe);
+                }
+
+                // Handle the response
+                iframe.onload = function() {
                     document.getElementById('successMessage').style.display = 'block';
-                    // Reset form and UI
                     document.getElementById('timeReportForm').reset();
                     document.getElementById('projectEntries').innerHTML = '';
                     addProjectEntry();
@@ -498,16 +502,12 @@
                     setTimeout(() => {
                         document.getElementById('successMessage').style.display = 'none';
                     }, 3000);
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('אירעה שגיאה בשליחת הטופס. אנא נסו שוב מאוחר יותר.');
-                })
-                .finally(() => {
-                    // Reset button state
-                    submitButton.innerHTML = originalButtonText;
-                    submitButton.disabled = false;
-                });
+                    document.body.removeChild(form);
+                };
+
+                // Add the form to the document and submit it
+                document.body.appendChild(form);
+                form.submit();
             }
         });
     </script>
