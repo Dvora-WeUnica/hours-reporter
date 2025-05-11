@@ -5,212 +5,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>דיווח שעות עבודה</title>
+    <title>דיווח שעות עבודה - WeUnica</title>
     <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Heebo', Arial, sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            margin: 0;
-            padding: 20px;
-            min-height: 100vh;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 20px auto;
-            background-color: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .container:hover {
-            transform: translateY(-5px);
-        }
-
-        h1 {
-            text-align: center;
-            color: #2c3e50;
-            margin-bottom: 30px;
-            font-size: 2.2em;
-            position: relative;
-            padding-bottom: 15px;
-        }
-
-        h1:after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 4px;
-            background: #3498db;
-            border-radius: 2px;
-        }
-
-        .welcome-text {
-            text-align: center;
-            color: #666;
-            margin-bottom: 30px;
-            font-size: 1.1em;
-            line-height: 1.6;
-        }
-
-        .form-group {
-            margin-bottom: 25px;
-            position: relative;
-        }
-
-        .project-entry {
-            background-color: #f8f9fa;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            border: 1px solid #e0e0e0;
-            position: relative;
-        }
-
-        .project-entry:hover {
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .remove-entry {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background-color: #e74c3c;
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 24px;
-            height: 24px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 16px;
-            transition: all 0.3s ease;
-            z-index: 10;
-        }
-
-        .remove-entry:hover {
-            background-color: #c0392b;
-            transform: scale(1.1);
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            color: #34495e;
-            font-weight: 500;
-            font-size: 1.1em;
-        }
-
-        input,
-        select {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            box-sizing: border-box;
-            background-color: white;
-            font-size: 1em;
-            transition: all 0.3s ease;
-        }
-
-        select {
-            cursor: pointer;
-            appearance: none;
-            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23a0aec0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-            background-repeat: no-repeat;
-            background-position: left 1rem center;
-            background-size: 1em;
-            padding-left: 2.5em;
-        }
-
-        input:focus,
-        select:focus {
-            outline: none;
-            border-color: #3498db;
-            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
-        }
-
-        .error {
-            color: #e74c3c;
-            font-size: 0.9em;
-            margin-top: 5px;
-            display: none;
-            animation: fadeIn 0.3s ease;
-        }
-
-        button {
-            background: linear-gradient(to right, #3498db, #2980b9);
-            color: white;
-            padding: 14px 28px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1.1em;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        button:hover {
-            background: linear-gradient(to right, #2980b9, #2573a7);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(41, 128, 185, 0.3);
-        }
-
-        button:active {
-            transform: translateY(0);
-        }
-
-        .add-project-btn {
-            background: linear-gradient(to right, #27ae60, #219a52);
-            margin: 20px 0;
-            width: 100%;
-        }
-
-        .add-project-btn:hover {
-            background: linear-gradient(to right, #219a52, #1e8449);
-        }
-
-        .submit-btn {
-            width: 100%;
-            margin-top: 20px;
-        }
-
-        .success-message {
-            display: none;
-            text-align: center;
-            color: #27ae60;
-            background-color: #dff0d8;
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 20px;
-            animation: slideIn 0.5s ease;
-        }
-
-        .field-tip {
-            color: #7f8c8d;
-            font-size: 0.9em;
-            margin-top: 5px;
-        }
-
-        .total-hours {
-            text-align: center;
-            font-size: 1.2em;
-            color: #2c3e50;
-            margin: 20px 0;
-            padding: 15px;
-            background-color: #f8f9fa;
-            border-radius: 8px;
-            border: 1px dashed #3498db;
+        :root {
+            --primary-color: #1a365d;
+            --accent-color: #2b6cb0;
+            --background-color: #f8fafc;
+            --text-color: #2d3748;
+            --border-color: #e2e8f0;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
         }
 
         @keyframes fadeIn {
@@ -218,22 +23,9 @@
                 opacity: 0;
                 transform: translateY(-10px);
             }
-
             to {
                 opacity: 1;
                 transform: translateY(0);
-            }
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateX(30px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateX(0);
             }
         }
 
@@ -242,26 +34,241 @@
                 opacity: 1;
                 transform: translateY(0);
             }
-
             to {
                 opacity: 0;
                 transform: translateY(-10px);
             }
         }
 
-        .emoji {
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Heebo', Arial, sans-serif;
+            background: var(--background-color);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            direction: rtl;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .header {
+            background: white;
+            padding: 20px;
+            box-shadow: var(--box-shadow);
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo {
+            max-width: 200px;
+            height: auto;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .form-container {
+            background: white;
+            padding: 35px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        h1 {
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 2em;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .welcome-text {
+            text-align: center;
+            color: var(--text-color);
+            margin-bottom: 35px;
+            font-size: 1.1em;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+            font-weight: 500;
+            font-size: 1em;
+            text-align: right;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1em;
+            color: var(--text-color);
+            background-color: white;
+            text-align: right;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            transition: border-color 0.2s ease;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(43, 108, 176, 0.1);
+        }
+
+        select {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%232d3748' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: left 16px center;
+            padding-left: 35px;
+        }
+
+        .project-entry {
+            background-color: #f8fafc;
+            padding: 25px;
+            border-radius: var(--border-radius);
+            margin-bottom: 20px;
+            border: 1px solid var(--border-color);
+            position: relative;
+            transition: box-shadow 0.2s ease;
+        }
+
+        .project-entry:hover {
+            box-shadow: var(--box-shadow);
+        }
+
+        .remove-entry {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background-color: #fc8181;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transition: background-color 0.2s ease;
+        }
+
+        .remove-entry:hover {
+            background-color: #f56565;
+        }
+
+        .add-project-btn,
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 1.1em;
+            font-weight: 500;
+            cursor: pointer;
+            margin: 10px 0;
+            transition: all 0.2s ease;
+        }
+
+        .add-project-btn {
+            background-color: #ebf4ff;
+            color: var(--accent-color);
+            border: 1px solid #bde0fe;
+        }
+
+        .submit-btn {
+            background-color: var(--accent-color);
+            color: white;
+            font-weight: 600;
+        }
+
+        .add-project-btn:hover {
+            background-color: #bde0fe;
+        }
+
+        .submit-btn:hover {
+            background-color: #2c5282;
+        }
+
+        .total-hours {
+            text-align: center;
             font-size: 1.2em;
-            margin: 0 3px;
+            color: var(--primary-color);
+            margin: 25px 0;
+            padding: 20px;
+            background-color: #f8fafc;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--border-color);
+            font-weight: 500;
+        }
+
+        .error {
+            color: #e53e3e;
+            font-size: 0.9em;
+            margin-top: 8px;
+            display: none;
+        }
+
+        .field-tip {
+            color: #718096;
+            font-size: 0.9em;
+            margin-top: 8px;
+            text-align: right;
+        }
+
+        .success-message {
+            background-color: #c6f6d5;
+            color: #2f855a;
+            padding: 16px;
+            border-radius: var(--border-radius);
+            text-align: center;
+            display: none;
+            margin-top: 20px;
+            font-weight: 500;
+            border: 1px solid #9ae6b4;
         }
 
         @media (max-width: 480px) {
             .container {
-                padding: 20px;
-                margin: 10px;
+                padding: 15px;
+            }
+            
+            .form-container {
+                padding: 25px 20px;
+            }
+
+            .logo {
+                max-width: 160px;
             }
 
             h1 {
-                font-size: 1.8em;
+                font-size: 1.6em;
             }
         }
     </style>
@@ -269,50 +276,51 @@
 
 
 <body>
+    <div class="header">
+        <img src="https://static.wixstatic.com/media/55e3a3_22807a5184e14e1fabbb08928cd62801~mv2.png/v1/fill/w_454,h_130,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Unica%20transparent%20(700%20%C3%97%20200%20px).png" alt="WeUnica Logo" class="logo">
+    </div>
+
     <div class="container">
-        <h1>דיווח שעות עבודה <span class="emoji">⏰</span></h1>
-
-
-        <div class="welcome-text">
-            ברוכים הבאים למערכת דיווח השעות!
-            ברוכים הבאים למערכת דיווח השעות!
-            <br>
-            כאן תוכלו לדווח בקלות על שעות העבודה שלכם בכל הפרויקטים.
-        </div>
-
-        <form id="timeReportForm">
-            <div class="form-group">
-                <label for="employeeName">שם העובד/ת: <span class="emoji">👤</span></label>
-                <select id="employeeName" name="employeeName" required>
-                    <option value="">בחר/י שם</option>
-                </select>
-                <div class="error" id="employeeNameError">אנא בחר/י שם מהרשימה</div>
-                <div class="field-tip">בחר/י את שמך מהרשימה</div>
+        <div class="form-container">
+            <h1>דיווח שעות עבודה</h1>
+            
+            <div class="welcome-text">
+                כאן תוכלו לדווח בקלות על שעות העבודה שלכם בכל הפרויקטים.
             </div>
 
-            <div id="projectEntries">
-                <!-- Project entries will be added here -->
+            <form id="timeReportForm">
+                <div class="form-group">
+                    <label for="employeeName">בחר/י את שמך מהרשימה</label>
+                    <select id="employeeName" name="employeeName" required>
+                        <option value="">בחר/י שם</option>
+                    </select>
+                    <div class="error" id="employeeNameError">אנא בחר/י שם מהרשימה</div>
+                </div>
+
+                <div id="projectEntries">
+                    <!-- Project entries will be added here -->
+                </div>
+
+                <button type="button" class="add-project-btn" onclick="addProjectEntry()">
+                    הוסף פרויקט נוסף
+                </button>
+
+                <div class="total-hours" id="totalHours">
+                    סה"כ שעות: 0
+                </div>
+
+                <button type="submit" class="submit-btn">שלח/י דיווח</button>
+            </form>
+
+            <div id="successMessage" class="success-message">
+                הדיווח נשלח בהצלחה!
             </div>
-
-            <button type="button" class="add-project-btn" onclick="addProjectEntry()">
-                הוסף פרויקט נוסף <span class="emoji">➕</span>
-            </button>
-
-            <div class="total-hours" id="totalHours">
-                סה"כ שעות: 0
-            </div>
-
-            <button type="submit" class="submit-btn">שלח/י דיווח <span class="emoji">✨</span></button>
-        </form>
-
-        <div id="successMessage" class="success-message">
-            <span class="emoji">✅</span> הדיווח נשלח בהצלחה! תודה על הדיווח המדויק.
         </div>
     </div>
 
     <script>
         const employees = [
-            { id: 'Bracha Marmarush', name: 'ברכה מרמרוש' },
+            { id: 'Bracha Marmarush', name: 'ברכה שרייבר' },
             { id: 'Dvora Hershovitz', name: 'דבורה הרשוביץ' },
             { id: 'Chaya Turtsin', name: 'חיה טורצ\'ין' },
             { id: 'Yael Breuer', name: 'יעל ברויאר' },
@@ -352,10 +360,9 @@
             const entryDiv = document.createElement('div');
             entryDiv.className = 'project-entry';
 
-
             const entryId = Date.now(); // Unique ID for the entry
             entryDiv.innerHTML = `
-                <button type="button" class="remove-entry" onclick="removeProjectEntry(this)">×</button>
+                <button type="button" class="remove-entry">×</button>
                 <div class="form-group">
                     <label for="projectName_${entryId}">שם הפרויקט: <span class="emoji">📊</span></label>
                     <select id="projectName_${entryId}" name="projectName" required onchange="updateTotalHours()">
@@ -377,6 +384,11 @@
                 </div>
             `;
 
+            // Add event listener to remove button
+            const removeButton = entryDiv.querySelector('.remove-entry');
+            removeButton.addEventListener('click', function() {
+                removeProjectEntry(this);
+            });
 
             return entryDiv;
         }
@@ -392,7 +404,6 @@
         function removeProjectEntry(button) {
             const entry = button.closest('.project-entry');
             const projectEntries = document.getElementById('projectEntries');
-
 
             // אם זה הפרויקט האחרון, אל תמחק אותו
             if (projectEntries.children.length <= 1) {
@@ -464,45 +475,39 @@
             });
 
             if (isValid && reports.length > 0) {
+                // Get the submit button and disable it
+                const submitButton = document.querySelector('.submit-btn');
+                const originalButtonText = submitButton.innerHTML;
+                submitButton.disabled = true;
+                submitButton.innerHTML = 'שולח... <span class="emoji">⏳</span>';
+
+                // Get the Hebrew name instead of the ID
+                const selectedEmployee = employees.find(emp => emp.id === employeeName);
+                const hebrewEmployeeName = selectedEmployee ? selectedEmployee.name : employeeName;
+
                 const timeReport = {
-                    employeeName,
+                    employeeName: hebrewEmployeeName,
                     reports: reports.map(report => ({
                         projectName: report.projectName,
                         hoursWorked: parseFloat(report.hoursWorked)
                     }))
                 };
 
-                console.log('Sending data:', timeReport); // Debug log
+                console.log('Sending data:', timeReport);
 
-                // Create a hidden form
-                const form = document.createElement('form');
-                form.method = 'POST';
-                form.action = 'https://script.google.com/macros/s/AKfycbwRtfK1eeAaUFN-xZTyZA7714Fti7j7UmhYP4Rnpd419r8Tp81yoU3hm3847SH3EWto/exec';
-                form.target = 'hidden_iframe';
-
-                // Add data as a hidden field
-                const dataInput = document.createElement('input');
-                dataInput.type = 'hidden';
-                dataInput.name = 'data';
-                dataInput.value = JSON.stringify(timeReport);
-                form.appendChild(dataInput);
-
-                console.log('Form data being sent:', dataInput.value); // Debug log
-
-                // Create hidden iframe for the response if it doesn't exist
-                let iframe = document.getElementById('hidden_iframe');
-                if (!iframe) {
-                    iframe = document.createElement('iframe');
-                    iframe.name = 'hidden_iframe';
-                    iframe.id = 'hidden_iframe';
-                    iframe.style.display = 'none';
-                    document.body.appendChild(iframe);
-                }
-
-                // Handle the response
-                iframe.onload = function() {
-                    console.log('Form submitted, iframe loaded'); // Debug log
+                fetch('https://script.google.com/macros/s/AKfycbwRtfK1eeAaUFN-xZTyZA7714Fti7j7UmhYP4Rnpd419r8Tp81yoU3hm3847SH3EWto/exec', {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(timeReport),
+                    redirect: 'follow'
+                })
+                .then(() => {
+                    // Show success message
                     document.getElementById('successMessage').style.display = 'block';
+                    // Reset form and UI
                     document.getElementById('timeReportForm').reset();
                     document.getElementById('projectEntries').innerHTML = '';
                     addProjectEntry();
@@ -510,15 +515,16 @@
                     setTimeout(() => {
                         document.getElementById('successMessage').style.display = 'none';
                     }, 3000);
-                    iframe.onload = null;
-                    if (form.parentNode) {
-                        form.parentNode.removeChild(form);
-                    }
-                };
-
-                // Add the form to the document and submit it
-                document.body.appendChild(form);
-                form.submit();
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('אירעה שגיאה בשליחת הטופס. אנא נסו שוב מאוחר יותר.');
+                })
+                .finally(() => {
+                    // Re-enable the submit button and restore its text
+                    submitButton.disabled = false;
+                    submitButton.innerHTML = originalButtonText;
+                });
             }
         });
     </script>
