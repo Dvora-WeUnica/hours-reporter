@@ -378,8 +378,8 @@
                 <div class="form-group">
                     <label for="hoursWorked_${entryId}">מספר שעות: <span class="emoji">🕒</span></label>
                     <input type="number" id="hoursWorked_${entryId}" name="hoursWorked" 
-                           step="0.5" min="0" max="24" required onchange="updateTotalHours()">
-                    <div class="error">יש להזין מספר שעות תקין (0-24)</div>
+                           step="0.5" min="0" required onchange="updateTotalHours()">
+                    <div class="error">יש להזין מספר שעות תקין (מעל 0)</div>
                     <div class="field-tip">הזן/י את מספר השעות בחצאי שעות (לדוגמה: 7.5)</div>
                 </div>
             `;
@@ -461,7 +461,7 @@
                     isValid = false;
                 }
 
-                if (isNaN(hoursWorked) || hoursWorked <= 0 || hoursWorked > 24) {
+                if (isNaN(hoursWorked) || hoursWorked <= 0) {
                     hoursError.style.display = 'block';
                     isValid = false;
                 }
