@@ -179,10 +179,22 @@
             transition: background-color 0.2s ease;
             padding: 0;
             line-height: 1;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            touch-action: manipulation;
         }
 
         .remove-entry:hover {
             background-color: #f56565;
+        }
+
+        .remove-entry span {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
         }
 
         .add-project-btn,
@@ -364,7 +376,7 @@
 
             const entryId = Date.now(); // Unique ID for the entry
             entryDiv.innerHTML = `
-                <button type="button" class="remove-entry">×</button>
+                <button type="button" class="remove-entry"><span>×</span></button>
                 <div class="form-group">
                     <label for="projectName_${entryId}">שם הפרויקט: <span class="emoji">📊</span></label>
                     <select id="projectName_${entryId}" name="projectName" required onchange="updateTotalHours()">
