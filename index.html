@@ -256,7 +256,17 @@
             transition: all 0.2s ease;
         }
 
-        .weekly-report-btn:hover {
+        .weekly-report-btn.active {
+            background-color: #ebf8ff;
+            border-color: #90cdf4;
+            color: #2b6cb0;
+        }
+
+        .weekly-report-btn.active:hover {
+            background-color: #bee3f8;
+        }
+
+        .weekly-report-btn:not(.active):hover {
             background-color: #f8f9fa;
             border-color: var(--accent-color);
             color: var(--accent-color);
@@ -463,12 +473,15 @@
         }
 
         function addProjectEntry() {
-            // If we're adding a regular project, enable the weekly report button and show add project button
+            // If we're adding a regular project, update weekly button state
             const weeklyBtn = document.querySelector('.weekly-report-btn');
-            weeklyBtn.disabled = false;
-            weeklyBtn.style.opacity = '';
-            weeklyBtn.style.cursor = '';
-            document.querySelector('.add-project-btn').classList.remove('hidden');
+            weeklyBtn.classList.remove('active');
+            weeklyBtn.innerHTML = `
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                </svg>
+                דיווח שבועי מלא (42 שעות)
+            `;
 
             // Remove weekly-mode class from all entries
             document.querySelectorAll('.project-entry').forEach(entry => {
@@ -501,9 +514,13 @@
                 if (!document.querySelector('.project-entry.weekly-mode')) {
                     document.querySelector('.add-project-btn').classList.remove('hidden');
                     const weeklyBtn = document.querySelector('.weekly-report-btn');
-                    weeklyBtn.disabled = false;
-                    weeklyBtn.style.opacity = '';
-                    weeklyBtn.style.cursor = '';
+                    weeklyBtn.classList.remove('active');
+                    weeklyBtn.innerHTML = `
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                        </svg>
+                        דיווח שבועי מלא (42 שעות)
+                    `;
                 }
             }, 300);
         }
@@ -519,6 +536,36 @@
         }
 
         function addWeeklyReport() {
+            const weeklyBtn = document.querySelector('.weekly-report-btn');
+            
+            // If already in weekly mode, cancel it
+            if (weeklyBtn.classList.contains('active')) {
+                // Remove weekly mode
+                weeklyBtn.classList.remove('active');
+                document.querySelector('.add-project-btn').classList.remove('hidden');
+                weeklyBtn.innerHTML = `
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                    </svg>
+                    דיווח שבועי מלא (42 שעות)
+                `;
+                
+                // Add a new empty project entry
+                const projectEntries = document.getElementById('projectEntries');
+                projectEntries.innerHTML = '';
+                addProjectEntry();
+                return;
+            }
+
+            // Enable weekly mode
+            weeklyBtn.classList.add('active');
+            weeklyBtn.innerHTML = `
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+                בטל דיווח שבועי מלא
+            `;
+
             // Remove all existing entries
             const projectEntries = document.getElementById('projectEntries');
             projectEntries.innerHTML = '';
@@ -535,12 +582,6 @@
 
             // Hide the add project button
             document.querySelector('.add-project-btn').classList.add('hidden');
-
-            // Disable the weekly report button to prevent multiple clicks
-            const weeklyBtn = document.querySelector('.weekly-report-btn');
-            weeklyBtn.disabled = true;
-            weeklyBtn.style.opacity = '0.6';
-            weeklyBtn.style.cursor = 'not-allowed';
 
             // Scroll the new entry into view
             newEntry.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
