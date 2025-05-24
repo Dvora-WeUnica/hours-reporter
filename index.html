@@ -23,6 +23,7 @@
                 opacity: 0;
                 transform: translateY(-10px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -34,6 +35,7 @@
                 opacity: 1;
                 transform: translateY(0);
             }
+
             to {
                 opacity: 0;
                 transform: translateY(-10px);
@@ -324,7 +326,7 @@
             .container {
                 padding: 15px;
             }
-            
+
             .form-container {
                 padding: 25px 20px;
             }
@@ -343,13 +345,14 @@
 
 <body>
     <div class="header">
-        <img src="https://static.wixstatic.com/media/55e3a3_22807a5184e14e1fabbb08928cd62801~mv2.png/v1/fill/w_454,h_130,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Unica%20transparent%20(700%20%C3%97%20200%20px).png" alt="WeUnica Logo" class="logo">
+        <img src="https://static.wixstatic.com/media/55e3a3_22807a5184e14e1fabbb08928cd62801~mv2.png/v1/fill/w_454,h_130,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Unica%20transparent%20(700%20%C3%97%20200%20px).png"
+            alt="WeUnica Logo" class="logo">
     </div>
 
     <div class="container">
         <div class="form-container">
             <h1>דיווח שעות עבודה</h1>
-            
+
             <div class="welcome-text">
                 כאן תוכלו לדווח בקלות על שעות העבודה שלכם בכל הפרויקטים.
             </div>
@@ -365,7 +368,9 @@
 
                 <button type="button" class="weekly-report-btn" onclick="addWeeklyReport()">
                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
+                        </path>
                     </svg>
                     דיווח שבועי מלא (42 שעות)
                 </button>
@@ -412,6 +417,8 @@
             { id: 'Ads manager', name: 'Ads manager' },
             { id: 'Algosec', name: 'Algosec' },
             { id: 'Avatr', name: 'Avatr' },
+            { id: 'Azrieli', name: 'Azrieli' },
+            { id: 'Broadridge', name: 'Broadridge' },
             { id: 'Golf', name: 'Golf' },
             { id: 'Hashstrom', name: 'Hashstrom' },
             { id: 'JDC', name: 'JDC' },
@@ -427,6 +434,7 @@
             { id: 'Shocken', name: 'Shocken' },
             { id: 'Wix Security', name: 'Wix Security' }
         ];
+
 
         // Populate employee dropdown dynamically
         const employeeSelect = document.getElementById('employeeName');
@@ -467,7 +475,7 @@
 
             // Add event listener to remove button
             const removeButton = entryDiv.querySelector('.remove-entry');
-            removeButton.addEventListener('click', function() {
+            removeButton.addEventListener('click', function () {
                 removeProjectEntry(this);
             });
 
@@ -539,7 +547,7 @@
 
         function addWeeklyReport() {
             const weeklyBtn = document.querySelector('.weekly-report-btn');
-            
+
             // If already in weekly mode, cancel it
             if (weeklyBtn.classList.contains('active')) {
                 // Remove weekly mode
@@ -551,7 +559,7 @@
                     </svg>
                     דיווח שבועי מלא (42 שעות)
                 `;
-                
+
                 // Add a new empty project entry
                 const projectEntries = document.getElementById('projectEntries');
                 projectEntries.innerHTML = '';
@@ -663,31 +671,30 @@
                     body: JSON.stringify(timeReport),
                     redirect: 'follow'
                 })
-                .then(() => {
-                    // Show success message
-                    document.getElementById('successMessage').style.display = 'block';
-                    // Reset form and UI
-                    document.getElementById('timeReportForm').reset();
-                    document.getElementById('projectEntries').innerHTML = '';
-                    addProjectEntry();
-                    updateTotalHours();
-                    setTimeout(() => {
-                        document.getElementById('successMessage').style.display = 'none';
-                    }, 3000);
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('אירעה שגיאה בשליחת הטופס. אנא נסו שוב מאוחר יותר.');
-                })
-                .finally(() => {
-                    // Re-enable the submit button and restore its text
-                    submitButton.disabled = false;
-                    submitButton.innerHTML = originalButtonText;
-                });
+                    .then(() => {
+                        // Show success message
+                        document.getElementById('successMessage').style.display = 'block';
+                        // Reset form and UI
+                        document.getElementById('timeReportForm').reset();
+                        document.getElementById('projectEntries').innerHTML = '';
+                        addProjectEntry();
+                        updateTotalHours();
+                        setTimeout(() => {
+                            document.getElementById('successMessage').style.display = 'none';
+                        }, 3000);
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('אירעה שגיאה בשליחת הטופס. אנא נסו שוב מאוחר יותר.');
+                    })
+                    .finally(() => {
+                        // Re-enable the submit button and restore its text
+                        submitButton.disabled = false;
+                        submitButton.innerHTML = originalButtonText;
+                    });
             }
         });
     </script>
 </body>
 
 </html>
-
